@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Jquery Form Transport Demo</title>
+
+    <!-- Rajax script itself doesn't have any dependencies-->
+    <script type="text/javascript" src="jquery.js"></script>
+    <script type="text/javascript" src="../src/jquery-form-transport.js"></script>
+    <link rel="stylesheet" href="style.css" type="text/css" media="all" />
+
+    <script type="text/javascript">/*<![CDATA[*/
+
+    (function($){
+        $(document).ready(function() {
+
+            $("#form_transport_submit").click(function(){
+
+                $.post('form1',{}, function(response){
+                    document.getElementById('form1').reset();
+                    document.getElementById('output').innerHTML=response;
+                },'form html');
+            });
+
+            $("#form_transport_submit2").click(function(){
+
+                $.ajax({
+                    form: $("#form2"),
+                    url: "post.php",
+                    formData: { name: "John", location: "Boston" },
+                    dataType: 'form html',
+                    success:function(data){
+                        document.getElementById('form1').reset();
+                        document.getElementById('output').innerHTML=data;
+                    }
+                });
+
+            });
+        });
+    })(jQuery);
+
+    /*]]>*/</script>
+</head>
+<body>
+<div id="output"></div>
+<div id="text">
+    <h1>Rajax Form Submitting with styled file input demo</h1>
+    <p>
+        Feel free to view the source code of this page to see how the demo is done.</p>
+</div>
+
+<ul>
+    <li id="example1" class="example">
+        <p>Example form transport</p>
+        <form id="form1" action="post.php" method="post">
+            <div class="wrapper">
+				An input <input type="text" name="text1">
+            </div> <br>
+           
+
+            <div class="wrapper">
+				browse a file
+            </div>
+            <div class="wrapper">
+				<input type="file" name="userFile">
+            </div>
+             <div class="wrapper"><br>
+                <input id="form_transport_submit" class="button" type="button" value="Submit form" />
+                &nbsp;
+                <input class="button" type="reset" value="Reset form"/>
+            </div>
+        </form>
+    <pre>
+$("#form_transport_submit").click(function(){
+
+    $.post('form1',{}, function(response){
+        document.getElementById('form1').reset();
+        document.getElementById('output').innerHTML=response;
+    },'form html');
+});
+    </pre>
+    </li>
+    <li id="example2" class="example">
+        <p>You can pass extra data along with it</p>
+        <form id="form2" action="xdm.php" method="post">
+            <div class="wrapper">
+                An input <input type="text" name="text1">
+            </div> <br>
+
+
+            <div class="wrapper">
+                browse a file
+            </div>
+            <div class="wrapper">
+                <input type="file" name="userFile">
+            </div>
+            <div class="wrapper"><br>
+                <input id="form_transport_submit2" class="button" type="button" value="Submit form" />
+                &nbsp;
+                <input class="button" type="reset" value="Reset form"/>
+            </div>
+        </form>
+<pre>
+ $("#form_transport_submit2").click(function(){
+    $.ajax({
+        form: $("#form2"),
+        formData: { name: "John", location: "Boston" },
+        dataType: 'form html',
+        success:function(data){
+            document.getElementById('form1').reset();
+            document.getElementById('output').innerHTML=data;
+        }
+ });});</pre>
+    </li>
+</ul>
+</body>
+</html>
