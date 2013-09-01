@@ -15,16 +15,17 @@ USES
 ====
 Rajax Form with styled input button
 
-<code>
+```json
     $.post('form_id',{}, function(data){
         //Handle the response data
 
     },'form html');
 
-</code>
+```
+
 or
 
-<code>
+```json
  $.ajax({
         form: 'form_id',
         url: "post.php",
@@ -34,5 +35,5 @@ or
             //Handle The response data
         }
     });
-</code>
+```
 
