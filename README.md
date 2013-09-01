@@ -15,7 +15,7 @@ USES
 ====
 Rajax Form with styled input button
 
-```json
+```javascript
     $.post('form_id',{}, function(data){
         //Handle the response data
 
@@ -25,7 +25,7 @@ Rajax Form with styled input button
 
 or
 
-```json
+```javascript
  $.ajax({
         form: 'form_id',
         url: "post.php",
