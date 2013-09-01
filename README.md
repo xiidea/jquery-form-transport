@@ -1,7 +1,7 @@
 jquery-form-transport
 =====================
 
-Its an ajaxTransport of Jquery library that allow to submit form
+Its an ajaxTransport of Jquery library that allow form submitting
 
 Key Features
 ============
