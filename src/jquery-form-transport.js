@@ -73,6 +73,8 @@
                 iframeInputsHolder,
                 formAction,
                 formMethod,
+                formEnctype,
+                formEncoding,
                 xdm_formSubmitted,
                 sameDomainRestored,
                 formTarget;
@@ -80,6 +82,8 @@
             formAction = form.attr('action') || "";
             formMethod = form.attr('method') || "";
             formTarget = form.attr('target') || "";
+            formEnctype = form.attr('enctype') || "";
+            formEncoding = form.attr('encoding') || "";
             sameDomainRestored = false;
             xdm_formSubmitted = false;
 
@@ -156,6 +160,8 @@
                                     form
                                         .prop('target', formTarget)
                                         .prop('action', formAction)
+                                        .prop('enctype', formEnctype)
+                                        .prop('encoding', formEncoding)
                                         .prop('method', formMethod);
 
                                     // Fix for IE endless progress bar activity bug
@@ -170,7 +176,11 @@
                             form
                                 .prop('target', iframe.prop('name'))
                                 .prop('action', options.url)
-                                .prop('method', options.type);
+                                .prop('method', options.type)
+                                .prop('enctype', 'multipart/form-data')
+                                // enctype must be set as encoding for IE:
+                                .prop('encoding', 'multipart/form-data');
+
                             if (options.formData) {
                                 iframeInputsHolder = $('<div>')
                                     .hide()
@@ -207,6 +217,8 @@
                     form
                         .prop('target', formTarget)
                         .prop('action', formAction)
+                        .prop('enctype', formEnctype)
+                        .prop('encoding', formEncoding)
                         .prop('method', formMethod);
                 }
             };
