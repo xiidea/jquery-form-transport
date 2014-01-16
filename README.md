@@ -13,10 +13,10 @@ Key Features
 
 USES
 ====
-Rajax Form with styled input button
+Sample code for ajaxTransport of Jquery library
 
 ```javascript
-    $.post('form_id',{}, function(data){
+    $.post('form_id',{ name: "John", location: "Boston" }, function(data){
         //Handle the response data
 
     },'form html');
