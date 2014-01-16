@@ -16,7 +16,7 @@
 
             $("#form_transport_submit").click(function(){
 
-                $.post('form1',{}, function(response){
+                $.post('form1',{ name: "John", location: "Boston" }, function(response){
                     document.getElementById('form1').reset();
                     document.getElementById('output').innerHTML=response;
                 },'form html');
@@ -73,7 +73,7 @@
     <pre>
 $("#form_transport_submit").click(function(){
 
-    $.post('form1',{}, function(response){
+    $.post('form1',{ name: "John", location: "Boston" }, function(response){
         document.getElementById('form1').reset();
         document.getElementById('output').innerHTML=response;
     },'form html');

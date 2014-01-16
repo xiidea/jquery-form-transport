@@ -1,7 +1,7 @@
 /**
  * Its an ajaxTransport of Jquery library that allow to submit form
  *
- * v1.0
+ * v1.1
  *
  * Submit ajax like form along with file input
  *
@@ -34,6 +34,35 @@
     })();
 
     var counter = 0;
+
+    var re = /([^&=]+)=?([^&]*)/g;
+    var decode = function(str) {
+        return decodeURIComponent(str.replace(/\+/g, ' '));
+    };
+
+    var parseParams = function(query) {
+        var params = {}, e;
+        if (query) {
+            if (query.substr(0, 1) == '?') {
+                query = query.substr(1);
+            }
+
+            while (e = re.exec(query)) {
+                var k = decode(e[1]);
+                var v = decode(e[2]);
+                if (params[k] !== undefined) {
+                    if (!$.isArray(params[k])) {
+                        params[k] = [params[k]];
+                    }
+                    params[k].push(v);
+                } else {
+                    params[k] = v;
+                }
+            }
+        }
+        return params;
+    };
+
 
     //  The form transport accepts three additional options:
     //  can be a string or an array of strings.
@@ -181,12 +210,14 @@
                                 // enctype must be set as encoding for IE:
                                 .prop('encoding', 'multipart/form-data');
 
-                            if (options.formData) {
+                            var formData = $.extend(parseParams(options.data), options.formData)
+
+                            if (formData) {
                                 iframeInputsHolder = $('<div>')
                                     .hide()
                                     .appendTo(form);
 
-                                $.each(options.formData, function (name, value) {
+                                $.each(formData, function (name, value) {
                                     $('<input type="hidden"/>')
                                         .prop('name', name)
                                         .val(value)
