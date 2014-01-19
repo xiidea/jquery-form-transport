@@ -147,7 +147,7 @@
                                     //If this is the initial response from the POST, we are still in the POST server's domain
                                     if(xdm_formSubmitted && !sameDomainRestored)
                                     {
-                                        console.log('form submitted');
+                                        //console.log('form submitted');
                                         //Now you know we're about to restore the local domain right?
                                         sameDomainRestored = true;
                                         //localResourceUrl is passed by the calling page and points to a local empty page
@@ -225,7 +225,17 @@
                                 });
                             }
                             xdm_formSubmitted = options.crossDomain;
-                            form[0].submit();
+
+                            if (typeof form[0].submit == 'object') {
+                                var span = $(form[0].submit).wrap('<span/>').parent('span');
+                                var submit_button = $(form[0].submit).clone(true);
+                                $(form[0].submit).remove();
+                                form[0].submit();
+                                span.append(submit_button);
+                                submit_button.unwrap();
+                            } else {
+                                form[0].submit();
+                            }
 
                         });
                     iframeHolder.append(iframe).appendTo(document.body);
